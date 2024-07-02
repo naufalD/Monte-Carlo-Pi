@@ -17,7 +17,7 @@ class PlotCirc : public Plot
 {
 
 public:
-    PlotCirc( QWidget *parent = nullptr);
+    PlotCirc(QString name, QWidget *parent = nullptr);
     void updatePlot(double newX, double newY);
 
 private:
@@ -28,7 +28,7 @@ private:
 class PlotErr : public Plot
 {
 public:
-    PlotErr( QWidget *parent = nullptr);
+    PlotErr( int numIterations, QWidget *parent = nullptr);
     void updatePlot(int total, double error);
 private:
     QPolygonF m_errorPoint;

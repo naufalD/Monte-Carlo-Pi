@@ -10,9 +10,9 @@ Plot::Plot(QWidget* parent) : QwtPlot(parent)
     setCanvasBackground( Qt::white );
 }
 
-PlotCirc::PlotCirc(QWidget* parent) : Plot(parent)
+PlotCirc::PlotCirc(QString name, QWidget* parent) : Plot(parent)
 {
-    setTitle("Stone throwing");
+    setTitle(QString(name));
     setAxisScale( QwtAxis::YLeft, -1.1, 1.1 );
     setAxisScale( QwtAxis::XBottom, -1.1, 1.1 );
 
@@ -39,12 +39,19 @@ void PlotCirc::updatePlot(double newX, double newY){
     replot();
 }
 
-PlotErr::PlotErr(QWidget* parent) : Plot(parent)
+PlotErr::PlotErr(int numIterations, QWidget* parent) : Plot(parent)
 {
     setTitle("Error");
 
+    QwtPlotCurve *zeroCurve = new QwtPlotCurve();
+    QPolygonF zeroPoint;
+    zeroPoint<<QPointF(0,0)<<QPointF(numIterations, 0);
+    zeroCurve->setSamples(zeroPoint);
+    zeroCurve->attach(this);
+
     m_errorCurve = new QwtPlotCurve();
     m_errorCurve->setCurveAttribute(QwtPlotCurve::Fitted, true);
+    m_errorCurve->setPen(Qt::red, 1);
     m_errorCurve->attach(this);
 
 }
