@@ -1,0 +1,57 @@
+#include "include/plot.h"
+
+#include <QPainter>
+#include <QPen>
+#include <QwtPlotCurve>
+
+Plot::Plot(QWidget* parent) : QwtPlot(parent)
+{
+    setMinimumSize(300,300);
+    setCanvasBackground( Qt::white );
+}
+
+PlotCirc::PlotCirc(QWidget* parent) : Plot(parent)
+{
+    setTitle("Stone throwing");
+    setAxisScale( QwtAxis::YLeft, -1.1, 1.1 );
+    setAxisScale( QwtAxis::XBottom, -1.1, 1.1 );
+
+    QPolygonF circlePoints;
+    QwtPlotCurve *circleCurve = new QwtPlotCurve();
+
+    for (float x {0}; x<2*3.15; x+=0.1){
+        circlePoints<<QPointF(cos(x), sin(x));
+    }
+
+    circleCurve -> setCurveAttribute(QwtPlotCurve::Fitted, true);
+    circleCurve -> setSamples(circlePoints);
+    circleCurve -> attach(this);
+
+    m_scatterCurve = new QwtPlotCurve();
+    m_scatterCurve -> setStyle( QwtPlotCurve::Dots );
+    m_scatterCurve -> setPen(Qt::red, 1);
+    m_scatterCurve -> attach(this);
+}
+
+void PlotCirc::updatePlot(double newX, double newY){
+    m_scatterPoint << QPointF(newX, newY);
+    m_scatterCurve -> setSamples(m_scatterPoint);
+    replot();
+}
+
+PlotErr::PlotErr(QWidget* parent) : Plot(parent)
+{
+    setTitle("Error");
+
+    m_errorCurve = new QwtPlotCurve();
+    m_errorCurve->setCurveAttribute(QwtPlotCurve::Fitted, true);
+    m_errorCurve->attach(this);
+
+}
+
+void PlotErr::updatePlot(int total, double error)
+{
+    m_errorPoint<<QPointF(total, error);
+    m_errorCurve->setSamples(m_errorPoint);
+    replot();
+}
