@@ -6,7 +6,7 @@
 
 Plot::Plot(QWidget* parent) : QwtPlot(parent)
 {
-    setMinimumSize(300,300);
+    setMinimumSize(200,200);
     setCanvasBackground( Qt::white );
 }
 
