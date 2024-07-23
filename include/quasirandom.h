@@ -1,9 +1,6 @@
 #ifndef QUASIRANDOM_H
 #define QUASIRANDOM_H
 
-#include <string>
-#include <vector>
-
 double haltonQuasi(int index, int base);
 int grayCode(int n);
 

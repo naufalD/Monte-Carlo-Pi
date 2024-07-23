@@ -1,5 +1,7 @@
 #include <include/quasirandom.h>
 
+#include <cmath>
+
 double haltonQuasi(int index, int base){
     double result {0};
     double temp {1};
@@ -37,11 +39,13 @@ unsigned int sobolDimension::m_directionNumber(int CIndex){
     }
     else{
         unsigned int mMinus1 {m_initial[m_degree-1]};
-        unsigned int mMinus2 {0};
-        unsigned int mMinus3 {0};
+        unsigned int mMinus2 {1};
+        unsigned int mMinus3 {1};
 
-        if (m_degree>2){
+        if (m_degree>1){
             mMinus2 = m_initial[m_degree-2];
+        }
+        if (m_degree>2){
             mMinus3 = m_initial[m_degree-3];
         }
 

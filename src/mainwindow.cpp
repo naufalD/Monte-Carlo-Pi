@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     unsigned int initial1[18] {0};
     sobolRNG1 = new sobolDimension(1, initial1, true);
 
-    unsigned int initial2[18] {1,3,1};
-    sobolRNG2 = new sobolDimension(3, initial2, false);
+    unsigned int initial2[18] {1};
+    sobolRNG2 = new sobolDimension(1, initial2, false);
 
     m_labelPi1 = new QLabel(this);
     m_labelPi1->setText(QString::number(0));
