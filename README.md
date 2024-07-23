@@ -15,5 +15,7 @@ The direction numbers are prrovided by Stephen Joe and Frances Kuo[^3]. Although
 ![gif](media/monte-carlo2.gif)
 
 [^1]: Landau, R. H. (2015). Computational physics problem solving with python. John Wiley & Sons, Incorporated. 
+
 [^2] Bratley and Fox (1988) Algorithm 659: Implementing Sobol's quasirandom sequence generator
+
 [^3] https://web.maths.unsw.edu.au/~fkuo/sobol/
