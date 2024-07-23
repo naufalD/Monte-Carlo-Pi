@@ -6,6 +6,10 @@ Randomness in computers are usually implemented using pseudo-random sequences. A
 
 ## Halton Sequence
 
+## Sobol Sequence
+The implementation of the sobol sequence follows the paper by Bratley and Fox (1988)[^2].
+### Direction Numbers
+The direction numbers are prrovided by Stephen Joe and Frances Kuo[^3]. Although we require only 2 dimensions, the numbers provided support up to 21201 dimensions. 
 
 ## Finding Pi
 ![gif](media/monte-carlo2.gif)
