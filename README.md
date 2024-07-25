@@ -32,7 +32,7 @@ $$P = x^s+a_1x^{s-1}+a_2x^{s-2}+\dots+a_{s-1}x+1$$
 
 and use the coefficients of the polynomial to obtain the direction numbers with the recurrence relation defined as <br/>
 
-$$v_i = a_1v_{i-1}\; \^{} \; a_1v_{i-2} \; \^{} \;\dots\; \^{} \; a_{s-1}v_{i-s+1}\; \^{} \; v_{i-s}\; \^{} \ (v_{i-s}>>d)$$
+$$v_i = a_1v_{i-1}\ \^{} \ a_1v_{i-2} \ \^{} \ \dots\; \^{} \ a_{s-1}v_{i-s+1}\ \^{} \ v_{i-s}\ \^{} \ (v_{i-s}>>d)$$
 <br/>
 
 where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $m_i = v_i<<i$ ($v_i$ with bitwise left shift by $i$) as
