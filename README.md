@@ -35,7 +35,7 @@ and use the coefficients of the polynomial to obtain the direction numbers with 
 $$v_i = a_1v_{i-1}\ ^\wedge \ a_1v_{i-2} \ ^\wedge \ \dots\ ^\wedge \ a_{s-1}v_{i-s+1}\ ^\wedge \ v_{i-s}\ ^\wedge \ (v_{i-s}>>d)$$
 <br/>
 
-where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $m_i = v_i<<i$ ($v_i$ with bitwise left shift by $i$) as
+where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $m_{i} = v_{i} << i$ ($v_i$ with bitwise left shift by $i$) as
 
 $$m_i = 2a_1m_{i-1}\ ^\wedge \ 2^2a_2m_{i-2}\ ^\wedge \ \dots \ ^\wedge \ 2^{s-1}a_{i-s+1}\ ^\wedge \ 2^dm_{i-s} \ ^\wedge \ m_{i-s}$$
 
