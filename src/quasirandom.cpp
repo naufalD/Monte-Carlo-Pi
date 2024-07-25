@@ -1,6 +1,7 @@
-#include <include/quasirandom.h>
+#include "include/quasirandom.h"
 
 #include <cmath>
+#include <vector>
 
 double haltonQuasi(int index, int base){
     double result {0};
@@ -15,12 +16,9 @@ double haltonQuasi(int index, int base){
     return result;
 }
 
-int grayCode(int n){
-    return n^(n/2);
-}
-
-sobolDimension::sobolDimension(int degree, unsigned int initial[18], bool firstDim){
+sobolDimension::sobolDimension(int degree,unsigned int coeff,  unsigned int initial[18], bool firstDim){
     m_degree = degree;
+    m_coeff = coeff;
     m_firstDim = firstDim;
     m_currentIndex = 0;
     m_currentPoint = 0;
@@ -38,24 +36,22 @@ unsigned int sobolDimension::m_directionNumber(int CIndex){
         return m_initial[CIndex];
     }
     else{
-        unsigned int mMinus1 {m_initial[m_degree-1]};
-        unsigned int mMinus2 {1};
-        unsigned int mMinus3 {1};
+        unsigned int mNext {1};
+        unsigned int mTemp {1};
+        std::vector<unsigned int> mVals(m_degree, 0);
 
-        if (m_degree>1){
-            mMinus2 = m_initial[m_degree-2];
-        }
-        if (m_degree>2){
-            mMinus3 = m_initial[m_degree-3];
-        }
-
-        unsigned int mNext {0};
+        for (int i{0}; i<m_degree; ++i) mVals[m_degree-1-i] = m_initial[i];
 
         for (int i {m_degree}; i<=CIndex;++i){
-            mNext = (4*mMinus2)^(8*mMinus3)^mMinus3;
-            mMinus3 = mMinus2;
-            mMinus2 = mMinus1;
-            mMinus1 = mNext;
+            mNext = mVals[m_degree-1];
+            for (int j {1}; j<=m_degree; ++j){
+                if (j==m_degree) mTemp = pow(2, j) * mVals[j-1];
+                else mTemp = pow(2, j) * ((m_coeff >> (m_degree-1-j)) & 1) * mVals[j-1];
+                mNext^=mTemp;
+            }
+            for (int k {m_degree-1}; k>0; --k) mVals[k] = mVals[k-1];
+
+            mVals[0] = mNext;
         }
         return mNext<<(32-CIndex);
     }
@@ -72,7 +68,7 @@ double sobolDimension::getPoint(){
     if (m_currentIndex==0){
         return 0;
     }
-    return (double) m_currentPoint/pow(2,32);
+    return (double) m_currentPoint/pow(2, 32);
 }
 
 void sobolDimension::nextPoint(){

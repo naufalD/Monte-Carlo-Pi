@@ -2,18 +2,18 @@
 #define QUASIRANDOM_H
 
 double haltonQuasi(int index, int base);
-int grayCode(int n);
 
 class sobolDimension
 {
 
 public:
-    sobolDimension(const int degree, unsigned int initial[18], bool firstDim);
+    sobolDimension(const int degree, unsigned int coeff, unsigned int initial[18], bool firstDim);
     double getPoint();
     void nextPoint();
 private:
     unsigned int m_initial[18];
     int m_degree;
+    unsigned int m_coeff;
     int m_currentIndex;
     unsigned int m_currentPoint;
     bool m_firstDim;
