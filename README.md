@@ -16,10 +16,15 @@ $$\frac{1}{3}, \frac{2}{3}, \frac{1}{9}, \frac{4}{9}, \frac{7}{9}, \frac{2}{9}, 
 
 ### Sobol Sequence
 The implementation of the sobol sequence follows the paper by Bratley and Fox (1988)[^2].
-Suppose we have a primitive polynomial of degree s with the form 
+Suppose we want to generate a sequence 
+$$x_1, x_2, \dots, x_n$$
+To do this, we first generate "direction numbers" $v_i$ that can be obtained by taking a primitive polynomial of the form:
 $$P = x^s+a_1x^{s-1}+a_2x^{s-2}+\dots+a_{s-1}x+1$$
-and want to generate a sequence 
-$$$$
+and use the coefficients of the polynomial to obtain the direction numbers with the recurrence relation defined as 
+$$v_i = a_1v_{i-1}\; \^{} \; a_1v_{i-2} \; \^{} \;\dots\; \^{} \; a_{s-1}v_{i-s+1}\; \^{} \; (v_{i-s}>>d)$$
+
+where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $m_i = v_i<<i$ ($v_i$ with bitwise left shift by $i$) as
+$$m_i = 2a_1\: \^{}$$
 
 #### Direction Numbers
 The direction numbers are prrovided by Stephen Joe and Frances Kuo[^3]. Although we require only 2 dimensions, the numbers provided support up to 21201 dimensions. 
