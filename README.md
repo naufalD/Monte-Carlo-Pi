@@ -32,12 +32,12 @@ $$P = x^s+a_1x^{s-1}+a_2x^{s-2}+\dots+a_{s-1}x+1$$
 
 and use the coefficients of the polynomial to obtain the direction numbers with the recurrence relation defined as <br/>
 
-$$v_i = a_1v_{i-1}\ \text{^} \ a_1v_{i-2} \ \text{^} \ \dots\ \text{^} \ a_{s-1}v_{i-s+1}\ \text{^} \ v_{i-s}\ \text{^} \ (v_{i-s}>>d)$$
+$$v_i = a_1v_{i-1}\ ^\wedge \ a_1v_{i-2} \ ^\wedge \ \dots\ ^\wedge \ a_{s-1}v_{i-s+1}\ ^\wedge \ v_{i-s}\ ^\wedge \ (v_{i-s}>>d)$$
 <br/>
 
 where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $m_i = v_i<<i$ ($v_i$ with bitwise left shift by $i$) as
 
-$$m_i = 2a_1m_{i-1}\ \text{^} \ 2^2a_2m_{i-2}\ \text{^} \ \dots \ \text{^} \ 2^{s-1}a_{i-s+1}\ \text{^} \ 2^dm_{i-s} \ \text{^} \ m_{i-s}$$
+$$m_i = 2a_1m_{i-1}\ ^\wedge \ 2^2a_2m_{i-2}\ ^\wedge \ \dots \ ^\wedge \ 2^{s-1}a_{i-s+1}\ ^\wedge \ 2^dm_{i-s} \ ^\wedge \ m_{i-s}$$
 
 #### Direction Numbers
 The direction numbers are prrovided by Stephen Joe and Frances Kuo[^3]. Although we require only 2 dimensions, the numbers provided support up to 21201 dimensions. 
