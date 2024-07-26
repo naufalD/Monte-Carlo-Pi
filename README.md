@@ -3,7 +3,7 @@ An interesting application of Monte Carlo methods is estimating the value of pi.
 
 ## Finding Pi
 To demonstrate multi dimentsional Monte Carlo methods, we try to find the value of pi by approximating the area of a circle. To do this, we take a circle inscribed inside a square with lengths in interval [-1, 1]. By throwing random points within the interval and finding the ratio between the number of points inside the circle and the total number of points, we can approximate the area. Since the radius of the circle is 1, the area that we retrieve in this method should converge to pi.
-
+### Results
 ![gif](media/uniformMC.gif)
 
 ## Quasi-random Sequences
@@ -19,6 +19,7 @@ We could then chose 3 as the base number for the next dimension to get this sequ
 
 $$\frac{1}{3}, \frac{2}{3}, \frac{1}{9}, \frac{4}{9}, \frac{7}{9}, \frac{2}{9}, \frac{5}{8}, \dots$$
 
+#### Results
 ![gif](media/HaltonMC.gif)
 
 
@@ -36,21 +37,34 @@ $$P = x^s+a_1x^{s-1}+a_2x^{s-2}+\dots+a_{s-1}x+1$$
 
 with coefficients $a_i$ being either 0 or 1 and use the coefficients of the polynomial to obtain the direction numbers with the recurrence relation defined as <br/>
 
-$$v_i = a_1v_{i-1}\ ^\wedge \ a_1v_{i-2} \ ^\wedge \ \dots\ ^\wedge \ a_{s-1}v_{i-s+1}\ ^\wedge \ v_{i-s}\ ^\wedge \ (v_{i-s}>>d)$$
+$$v_i = a_1v_{i-1}\ ^\wedge \ a_1v_{i-2} \ ^\wedge \ \dots\ ^\wedge \ a_{s-1}v_{i-s+1}\ ^\wedge \ v_{i-s}\ ^\wedge \ (v_{i-s}>>s)$$
 <br/>
 
-where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $m_{i} = v_{i} << i$ ($v_i$ with bitwise left shift by $i$) as
+where ^ is the bitwise XOR operator and >> is the bitwise right shift operator (shifting right by $d$ in this case). A better way to compute this relation is by defining it with respect to $m_i$ where $v_{i} = m_{i} << i$ (bitwise left shift  by i). In practice, since $v_i$ is not an integer, we do the following operation to convert the unsigned integer $m_i$ into float $v_i$<br/>
+
+$$v_{i} = 2^{32}\ (m_i<<32-i)$$ 
+<br/>
+
+We can then define the recurrence relation in terms of $m_i$ as<br/>
 
 $$m_i = 2a_1m_{i-1}\ ^\wedge \ 2^2a_2m_{i-2}\ ^\wedge \ \dots \ ^\wedge \ 2^{s-1}a_{i-s+1}\ ^\wedge \ 2^dm_{i-s} \ ^\wedge \ m_{i-s}$$
 <br/>
 
-With this, we can then get the points for the sobol sequence as
-$$x_i = x_{i-1}\ ^\wedge $$
+With this, we can then get the points for the sobol sequence as<br/>
 
-#### Direction Numbers
-The direction numbers are prrovided by Stephen Joe and Frances Kuo[^3]. Although we require only 2 dimensions, the numbers provided support up to 21201 dimensions. 
+$$x_i = x_{i-1}\ ^\wedge \ v_c = x_{i-1}\ ^\wedge $$
+<br/>
 
+where $c$ is the position of the rightmost zero bit in the binary representation of $i-1$. There is a special case which is the first dimension where we find that defining all $m_i$ as 1 gives us good results. The rest of the dimensions follow the method outlines above for finding $m_i$.
+
+#### Initialization Numbers
+The direction numbers are prrovided by Stephen Joe and Frances Kuo[^3]. Although we require only 2 dimensions, the numbers provided support up to 21201 dimensions. The file includes dimension $d$, polynomial degree $s$, **integer representation** (**CONVERT TO BINARY**) of the polynomial coeffeicients $a$ and the initialization numbers $m\_i$. The initialization numbers represent the first $s$ values of $m_i$ to be used.
+#### Results
 ![gif](media/sobolMC.gif)
+
+## Conclusion
+We find that the sobol sequence is superior in terms of convergence compared to the other generators and get very close to the correct number of pi to 2 decimal points with only 10,000 points. (To be done: scrambled sobol sequence) 
+<br/>
 
 [^1]: Landau, R. H. (2015). Computational physics problem solving with python. John Wiley & Sons, Incorporated. 
 
