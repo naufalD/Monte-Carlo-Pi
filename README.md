@@ -19,7 +19,7 @@ We could then chose 3 as the base number for the next dimension to get this sequ
 
 $$\frac{1}{3}, \frac{2}{3}, \frac{1}{9}, \frac{4}{9}, \frac{7}{9}, \frac{2}{9}, \frac{5}{8}, \dots$$
 
-![gif](media/haltonMC.gif)
+![gif](media/HaltonMC.gif)
 
 
 ### Sobol Sequence
