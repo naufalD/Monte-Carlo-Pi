@@ -14,13 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
     m_pointIn3 = 0;
     m_pointTotal = 0;
     m_pause = 0;
-    m_numIterations = 20000;
+    m_numIterations = 10000;
 
-    unsigned int initial1[18] {0};
-    sobolRNG1 = new sobolDimension(1, initial1, true);
+    unsigned int initial1[18] {1};
+    sobolRNG1 = new sobolDimension(1, 1,  initial1, true);
 
     unsigned int initial2[18] {1};
-    sobolRNG2 = new sobolDimension(1, initial2, false);
+    sobolRNG2 = new sobolDimension(1, 1, initial2, false);
+    sobolRNG2->nextPoint();
 
     m_labelPi1 = new QLabel(this);
     m_labelPi1->setText(QString::number(0));
@@ -72,35 +73,35 @@ void MainWindow::timerEvent( QTimerEvent* )
     else{
         m_pointTotal = m_pointTotal+1;
 
-        double newX = (arc4random() / pow(2,32) * 2)-1;
-        double newY = (arc4random() / pow(2,32) * 2)-1;
+        double newX {0};// (arc4random() / pow(2,32) * 2)-1;
+        double newY {0};// (arc4random() / pow(2,32) * 2)-1;
 
-        if (pow(newX, 2)+pow(newY, 2) < 1){
-            m_pointIn1 = m_pointIn1+1;
-        }
+        // if (pow(newX, 2)+pow(newY, 2) < 1){
+        //     m_pointIn1 = m_pointIn1+1;
+        // }
 
-        double result = static_cast<double>(m_pointIn1)/static_cast<double>(m_pointTotal)*4.0;
+        double result {0};// = static_cast<double>(m_pointIn1)/static_cast<double>(m_pointTotal)*4.0;
 
-        m_plotCirc1->updatePlot(newX, newY);
-        m_plotErr1->updatePlot(m_pointTotal, result-M_PI);
-        m_labelPi1->setText(QString::number(result));
+        // m_plotCirc1->updatePlot(newX, newY);
+        // m_plotErr1->updatePlot(m_pointTotal, result-M_PI);
+        // m_labelPi1->setText(QString::number(result));
 
-        //--------------------------------------------------
+        // --------------------------------------------------
 
-        newX = (haltonQuasi(m_timer.elapsed(), 2)*2)-1;
-        newY = (haltonQuasi(m_timer.elapsed(), 3)*2)-1;
+        // newX = (haltonQuasi(m_timer.elapsed(), 2)*2)-1;
+        // newY = (haltonQuasi(m_timer.elapsed(), 3)*2)-1;
 
-        if (pow(newX, 2)+pow(newY, 2) < 1){
-            m_pointIn2 = m_pointIn2+1;
-        }
+        // if (pow(newX, 2)+pow(newY, 2) < 1){
+        //     m_pointIn2 = m_pointIn2+1;
+        // }
 
-        result = static_cast<double>(m_pointIn2)/static_cast<double>(m_pointTotal)*4.0;
+        // result = static_cast<double>(m_pointIn2)/static_cast<double>(m_pointTotal)*4.0;
 
-        m_plotCirc2->updatePlot(newX, newY);
-        m_plotErr2->updatePlot(m_pointTotal, result-M_PI);
-        m_labelPi2->setText(QString::number(result));
+        // m_plotCirc2->updatePlot(newX, newY);
+        // m_plotErr2->updatePlot(m_pointTotal, result-M_PI);
+        // m_labelPi2->setText(QString::number(result));
 
-        //--------------------------------------------------
+        // --------------------------------------------------
 
         newX = (sobolRNG1->getPoint()*2)-1;
         newY = (sobolRNG2->getPoint()*2)-1;

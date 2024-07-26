@@ -42,6 +42,7 @@ void PlotCirc::updatePlot(double newX, double newY){
 PlotErr::PlotErr(int numIterations, QWidget* parent) : Plot(parent)
 {
     setTitle("Error");
+    setAxisScale( QwtAxis::YLeft, -1, 1 );
 
     QwtPlotCurve *zeroCurve = new QwtPlotCurve();
     QPolygonF zeroPoint;

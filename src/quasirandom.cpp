@@ -3,6 +3,8 @@
 #include <cmath>
 #include <vector>
 
+using std::vector;
+
 double haltonQuasi(int index, int base){
     double result {0};
     double temp {1};
@@ -33,12 +35,12 @@ unsigned int sobolDimension::m_directionNumber(int CIndex){
         return 1<<(32-CIndex);
     }
     if (CIndex<m_degree){
-        return m_initial[CIndex];
+        return m_initial[CIndex]<<(32-CIndex);
     }
     else{
         unsigned int mNext {1};
         unsigned int mTemp {1};
-        std::vector<unsigned int> mVals(m_degree, 0);
+        vector<unsigned int> mVals(m_degree, 0);
 
         for (int i{0}; i<m_degree; ++i) mVals[m_degree-1-i] = m_initial[i];
 
